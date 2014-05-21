@@ -5,6 +5,7 @@ import spray.httpx.marshalling._
 import spray.httpx.unmarshalling._
 import MediaTypes._
 import scala.xml.NodeSeq
+import spray.json.DefaultJsonProtocol
 
 /**
  * This case class will be used to marshal from and to a vendor specific (vnd) <a href="http://en.wikipedia.org/wiki/Internet_media_type">Internet Media Type</a>
@@ -17,8 +18,12 @@ case class Person(name: String, firstName: String, age: Int)
  * that must be made available where the (un)marshalling will be done by means of an import, see  <code>PersonMarshalTest</code>. That way
  * the specific marshaller will be made available implicitly so the compiler can use the value where an marshaller is needed
  */
-object Person {
+object PersonMarshaller {
   val `application/vnd.acme.person` = MediaTypes.register(MediaType.custom("application/vnd.acme.person"))
+
+  object PersonJsonProtocol extends DefaultJsonProtocol {
+    implicit val personJsonFormat = jsonFormat3(Person)
+  }
 
   /**
    * This value represents a Marshaller to the vendor specific format
