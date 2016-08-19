@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.example
+package com.github.dnvriend.spray.json
 
 import org.scalatest.{ FlatSpec, Matchers }
-import spray.json.DefaultJsonProtocol
-import spray.json._
+import spray.json.{ DefaultJsonProtocol, _ }
 
 class RenameFieldsWithJsonFormatTest extends FlatSpec with Matchers {
 

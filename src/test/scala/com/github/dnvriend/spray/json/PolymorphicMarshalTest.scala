@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package com.example
+package com.github.dnvriend.spray.json
 
-import org.scalatest.{ FlatSpec, Matchers }
-import spray.json.{ DefaultJsonProtocol, RootJsonFormat, _ }
+import org.scalatest.{FlatSpec, Matchers}
+import spray.json.{DefaultJsonProtocol, RootJsonFormat}
 
 trait PersonEvent {
   def personId: Long
 }
-case class PersonCreated(val personId: Long, firstName: String, lastName: String) extends PersonEvent
+case class PersonCreated(personId: Long, firstName: String, lastName: String) extends PersonEvent
 
-case class FirstNameChanged(val personId: Long, oldName: String, newName: String) extends PersonEvent
+case class FirstNameChanged(personId: Long, oldName: String, newName: String) extends PersonEvent
 
-case class LastNameChanged(val personId: Long, oldName: String, newName: String) extends PersonEvent
+case class LastNameChanged(personId: Long, oldName: String, newName: String) extends PersonEvent
 
 class PolymorphicMarshalTest extends FlatSpec with Matchers {
 
@@ -67,36 +67,36 @@ class PolymorphicMarshalTest extends FlatSpec with Matchers {
     }
   }
 
-  import spray.json._
   import PersonEventMarshallers._
+  import spray.json._
 
   "PersonCreated" should "be marshalled" in {
-    PersonCreated(1, "fn", "ln").asInstanceOf[PersonEvent].toJson.compactPrint shouldBe """{"@class":"com.example.PersonCreated","personId":1,"firstName":"fn","lastName":"ln"}"""
+    PersonCreated(1, "fn", "ln").asInstanceOf[PersonEvent].toJson.compactPrint shouldBe """{"@class":"com.github.dnvriend.spray.json.PersonCreated","personId":1,"firstName":"fn","lastName":"ln"}"""
   }
 
   it should "be unmarshalled" in {
-    """{"@class":"com.example.PersonCreated","personId":1,"firstName":"fn","lastName":"ln"}""".parseJson.convertTo[PersonEvent] should matchPattern {
+    """{"@class":"com.github.dnvriend.spray.json.PersonCreated","personId":1,"firstName":"fn","lastName":"ln"}""".parseJson.convertTo[PersonEvent] should matchPattern {
       case PersonCreated(1, "fn", "ln") =>
     }
   }
 
 
   "FirstNameChanged" should "be marshalled" in {
-    FirstNameChanged(1, "old", "new").asInstanceOf[PersonEvent].toJson.compactPrint shouldBe """{"@class":"com.example.FirstNameChanged","personId":1,"oldName":"old","newName":"new"}"""
+    FirstNameChanged(1, "old", "new").asInstanceOf[PersonEvent].toJson.compactPrint shouldBe """{"@class":"com.github.dnvriend.spray.json.FirstNameChanged","personId":1,"oldName":"old","newName":"new"}"""
   }
 
   it should "be unmarshalled" in {
-    """{"@class":"com.example.FirstNameChanged","personId":1,"oldName":"old","newName":"new"}""".parseJson.convertTo[PersonEvent] should matchPattern {
+    """{"@class":"com.github.dnvriend.spray.json.FirstNameChanged","personId":1,"oldName":"old","newName":"new"}""".parseJson.convertTo[PersonEvent] should matchPattern {
       case FirstNameChanged(1, "old", "new") =>
     }
   }
 
   "LastNameChanged" should "be marshalled" in {
-    LastNameChanged(1, "old", "new").asInstanceOf[PersonEvent].toJson.compactPrint shouldBe """{"@class":"com.example.LastNameChanged","personId":1,"oldName":"old","newName":"new"}"""
+    LastNameChanged(1, "old", "new").asInstanceOf[PersonEvent].toJson.compactPrint shouldBe """{"@class":"com.github.dnvriend.spray.json.LastNameChanged","personId":1,"oldName":"old","newName":"new"}"""
   }
 
   it should "be unmarshalled" in {
-    """{"@class":"com.example.LastNameChanged","personId":1,"oldName":"old","newName":"new"}""".parseJson.convertTo[PersonEvent] should matchPattern {
+    """{"@class":"com.github.dnvriend.spray.json.LastNameChanged","personId":1,"oldName":"old","newName":"new"}""".parseJson.convertTo[PersonEvent] should matchPattern {
       case LastNameChanged(1, "old", "new") =>
     }
   }

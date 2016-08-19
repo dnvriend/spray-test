@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example
+package com.github.dnvriend.spray.json
 
 import java.text.{DateFormat, SimpleDateFormat}
 

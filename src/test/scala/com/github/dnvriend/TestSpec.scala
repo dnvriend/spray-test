@@ -14,21 +14,8 @@
  * limitations under the License.
  */
 
-package com.example
+package com.github.dnvriend
 
 import org.scalatest.{ FlatSpec, Matchers }
-import spray.json._
 
-class DetermineJsObjectOrArrayTypeTest extends FlatSpec with Matchers {
-
-  "Spray JSON Parser" should "detect an object" in {
-    "{}".parseJson shouldBe a[JsObject]
-    "{}".parseJson should not be a[JsArray]
-  }
-
-  it should "detect an Array" in {
-    "[]".parseJson shouldBe a[JsArray]
-    "[]".parseJson should not be a[JsObject]
-  }
-
-}
+abstract class TestSpec extends FlatSpec with Matchers

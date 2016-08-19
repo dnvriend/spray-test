@@ -20,14 +20,14 @@ organization := "com.github.dnvriend"
 
 version := "1.0.0"
 
-scalaVersion  := "2.11.7"
+scalaVersion  := "2.11.8"
 
 libraryDependencies ++= {
-  val akkaVersion = "2.4.2-RC2"
+  val akkaVersion = "2.4.9-RC2"
   Seq(
     "com.typesafe.akka" %% "akka-actor" % akkaVersion,
     "com.typesafe.akka" %% "akka-http-spray-json-experimental" % akkaVersion,
-    "org.scalatest" %% "scalatest" % "2.2.4" % Test
+    "org.scalatest" %% "scalatest" % "2.2.6" % Test
   )
 }
 
@@ -46,7 +46,6 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(AlignSingleLineCaseStatements, true)
   .setPreference(AlignSingleLineCaseStatements.MaxArrowIndent, 100)
   .setPreference(DoubleIndentClassDeclaration, true)
-  .setPreference(RewriteArrowSymbols, true)
 
 // enable updating file headers //
 import de.heikoseeberger.sbtheader.license.Apache2_0
